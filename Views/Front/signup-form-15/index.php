@@ -4,7 +4,7 @@ include_once '../../../Model/user.php';
 include_once '../../../Controller/UserC.php';
 //include_once '../../Controller/InfoC.php';
 //include_once "C://wamp64/www/solis/config.php";
-   include_once "C://xampp/htdocs/validation/config.php";
+include_once "C://xampp/htdocs/validation/config.php";
 $error = "";
 
 
@@ -29,7 +29,7 @@ if (isset($_POST["username"]) &&
          $_SESSION['telephone'] = $info["telephone"];
             if($message=='2'){ 
            header('Location: ../back/index.php');} else if ($message=='1'){
-            header('Location:profil.php');
+            header('Location:../security-guard-website-template/account.php');
            }
                 
         }
@@ -41,6 +41,13 @@ if (isset($_POST["username"]) &&
        } else
            echo "Missing informations";
    }
+
+
+   
+ 
+   
+   
+
 ?>
 
 
@@ -69,28 +76,30 @@ if (isset($_POST["username"]) &&
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Bienvenue Chez EvenTN </h2>
+					<h2 class="heading-section">Bienvenue  Chez  EvenTN </h2>
 				</div>
 			</div>
 			<div class="row justify-content-center">
 				<div class="col-md-7 col-lg-5">
 					<div class="login-wrap p-4 p-md-5">
 		      	<h3 class="mb-4">Sign Up</h3>
-						<form action="#" class="signup-form">
-		      		
-		      		<div class="form-group">
-		      			<label class="label" for="email">username</label>
-		      			<input type="text" class="form-control" placeholder="johndoe@gmail.com">
-		      		</div>
-	            <div class="form-group">
-	            	<label class="label" for="password">Password</label>
-	              <input id="password-field" type="password" class="form-control" placeholder="Password">
-	            </div>
-	            
-	            <div class="form-group d-flex justify-content-end mt-5">
-	            	<button type="submit" class="btn btn-primary submit"><span class="fa fa-paper-plane"></span></button>
-	            </div>
-	          </form>
+				  <form class="user" method="post" action="" id="form">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="username" name="username" 
+                                                placeholder="Enter Username...">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="password" name="password" placeholder="Password">
+                                        </div>
+                                        <button type="submit" name="login_submit" class="btn btn-primary btn-user btn-block"> Login </button>
+                                            
+                                        </a>
+                                        <hr>
+                                    </form>
+
+                    
 	          <p class="text-center">Already have an account? <a href="colorlib-regform-5/index.php">Sign In</a></p>
 	        </div>
 				</div>
