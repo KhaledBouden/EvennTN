@@ -85,6 +85,13 @@ include_once '../Model/reclamationn.php';
                     </td>
                 </tr>     
                 <tr>
+                <div id="google_translate_element"></div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'hi', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                     <td></td>
                     <td>
                         <input type="submit" value="Modifier"> 
@@ -94,6 +101,7 @@ include_once '../Model/reclamationn.php';
                     </td>
                 </tr>
             </table>
+            
         </form>
     </body>
 </html>

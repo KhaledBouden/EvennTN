@@ -1,7 +1,7 @@
 <?php
  	//include_once '../Controller/reclamationcc.php';
 	 
-	  
+	   
 	class reclamationc { 
 		public function afficherreclamation(){
 			
@@ -69,9 +69,12 @@
 */
 
 
-	/*
-		function recupererreclamation($reclamation){
-			$sql="SELECT * from reclamation where id=$id";
+	
+		function recupererreclamation($id){
+			 
+		 	 
+			$sql="SELECT * from reclamation where id=$id  ";
+
 			$db = config::getConnexion();
 			try{
 				$query=$db->prepare($sql);
@@ -83,29 +86,91 @@
 			catch (Exception $e){
 				die('Erreur: '.$e->getMessage());
 			}
-		}*/
-		function modifierreclamation($reclamation, $id){
+		}
+		 function modifierreclamation($reclamation, $id){
+		
 			try {
 				$db = config::getConnexion();
 				$query = $db->prepare(
 					'UPDATE reclamation SET 
-						id= :id, 
-						"date"= :"date", 
+						 id= :id, 
+						date= :date, 
 						objet= :objet, 
-						"description"= :"description"
+						description= :description
 					WHERE id= :id'
 				);
 				$query->execute([
 					'id' => $reclamation->getid(),
 					'date' => $reclamation->getdate(),
 					'objet' => $reclamation->getobjet(),
-					"description" => $reclamation->getdescription()
+					"description" => $reclamation->getdescription(),
+					'id' => $id
 				]);
 				echo $query->rowCount() . " records UPDATED successfully <br>";
 			} catch (PDOException $e) {
 				$e->getMessage();
 			}
 		}
+
+		public function pagination($page, $perPage)
+        {
+            $start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
+            $sql = "SELECT * FROM reclamation LIMIT {$start},{$perPage}";
+            $db = config::getConnexion();
+            try {
+                $liste = $db->prepare($sql);
+                $liste->execute();
+                $liste = $liste->fetchAll(PDO::FETCH_ASSOC);
+                return $liste;
+            } catch (Exception $e) {
+                die('Erreur: ' . $e->getMessage());
+            }
+        }
+		public function calcTotalRows($perPage)
+        {
+            $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM reclamation";
+            $db = config::getConnexion();
+            try {
+    
+                $liste = $db->query($sql);
+                $total = $db->query("SELECT FOUND_ROWS() as total")->fetch()['total'];
+                $pages = ceil($total / $perPage);
+                return $pages;
+            } catch (Exception $e) {
+                die('Erreur: ' . $e->getMessage());
+            }
+        }
+       
+		public function recherche($search_value)
+        {
+            $sql=" SELECT * FROM reclamation where id like '$search_value' ";
+            //global $db;
+            $db =Config::getConnexion();
+            try{
+                $result=$db->query($sql);
+                return $result;
+            }
+            catch (Exception $e){
+                die('Erreur: '.$e->getMessage());
+            }
+        }
+
+		public function triCroissant($page, $perPage)
+        {
+            $start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
+            $sql = "SELECT * FROM reclamation order by id LIMIT {$start},{$perPage}";
+            $db = config::getConnexion();
+            try {
+                $liste = $db->prepare($sql);
+                $liste->execute();
+                $liste = $liste->fetchAll(PDO::FETCH_ASSOC);
+                return $liste;
+            } catch (Exception $e) {
+                die('Erreur: ' . $e->getMessage());
+            }
+        }
+
+
 
 	}
 ?>

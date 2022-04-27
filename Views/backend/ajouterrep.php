@@ -1,3 +1,42 @@
+
+<?php
+
+include '../../Controller/reponsecc.php';
+include '../../model/reponsee.php';
+ include_once '../../config.php'; 
+   $error = "";
+    // create adherent
+    $reponse = null;
+    // create an instance of the controller
+    $reponseC = new reponseC();
+    if (
+        isset($_POST["id"]) &&
+		isset($_POST["date"]) &&		
+        isset($_POST["objet"]) &&
+		isset($_POST["description"])  
+         
+    ) {
+        if (
+            !empty($_POST["id"]) && 
+			!empty($_POST['date']) &&
+            !empty($_POST["objet"]) && 
+			!empty($_POST["description"]) 
+        ) {
+            $reponse = new reponse(
+                $_POST['id'],
+				$_POST['date'],
+                $_POST['objet'], 
+				$_POST['description'] 
+            );
+            $reponseC->ajouterreponse($reponse);
+           // header('Location:afficherListereponse.php');
+        }
+        else
+            $error = "Missing information";
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +48,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin View reclamation</title>
+    <title>Admin View Reponse</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,7 +70,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="blank.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -116,7 +155,7 @@
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item active" href="blank.php">Reclamation</a>
+                        <a class="collapse-item active" href="blank.php">Reponse</a>
                     </div>
                 </div>
             </li>
@@ -207,13 +246,9 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">5+</span>
+                                <span class="badge badge-danger badge-counter">3+</span>
                             </a>
                             <!-- Dropdown - Alerts -->
-
-                            
- 
-
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
@@ -364,156 +399,63 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Bienvenue Admin</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Reponse</h1>
  
                      
-                    <?php
-
- include_once "../../Controller/reclamationcc.php";
- include_once "../../config.php";
- include_once '../../Model/reclamationn.php';
- //include 'C:\wamp64\www\Controller/reclamationcc.php';
-//require_once 'C:\xampp\htdocs\Produit_backend\produit.php';
-	$reclamationC=new reclamationc();
-	$listereclamation=$reclamationC->afficherreclamation(); 
-?>
-
-
-<?PHP
-
-//pagination
-
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$perpage = isset($GET['per-page']) && $_GET['per-page'] <= 50 ? (int)$_GET['per-page'] : 4 ;
-$reclamationC = new reclamationC();
-$listereclamation = $reclamationC->pagination($page, $perpage);
-$totalP = $reclamationC->calcTotalRows($perpage);
-
-
-
-//recherche
-
-if(isset($_GET['recherche']))
-{
-    $search_value=$_GET["recherche"];
-    $listereclamation=$reclamationC->recherche($search_value);
-}
-
- //trie
- if(isset($_GET['trie']))
- {
-     $listereclamation = $reclamationC->triCroissant($page, $perpage);
- }
-
-
-?>
-
-
- 
-
-<button><a href="../ajouter.php"   >Ajouter une reclamation</a></button>
-		<center><h1>Liste des reclamations</h1></center>
-		<table border="1" align="center">
-			<tr>
-            <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
-				<th>ID</th>
-				<th>Date</th>
-				<th>Objet</th>
-				<th>Description</th>
-				<th>Supprimer</th>
-				<th>Réponse</th>
-                 
-                
-                <div class="row">
-    
-                                        <nav>
-                                            <ul class="pagination">
-                                                <?php
-
-                                                    for ($x = 1; $x <= $totalP; $x++) :
-                                                ?>
-                                                
-                                                <li class="page-item">
-                                                    <a class="page-link" href="?page=<?php echo $x; ?>&per-page=<?php echo $perpage; ?>"><?php echo $x; ?></a><?php endfor; ?>
-                                                </li>
-
-                                            </ul>
-                                        </nav>
-                                    </div>
-			</tr>
-            
-                                                       <form  method="get" action="blank.php">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher un reclamtion"
-                                                                    aria-label="Search" aria-describedby="basic-addon2" name="recherche">
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-primary" type="submit" value="Chercher">
-                                                                        <i class="fas fa-search fa-sm"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                           </form>
-			<?php
-				foreach($listereclamation as $reclamation){
-			?>
-
-			<tr>
-				<td><?php echo $reclamation['id']; ?></td>
-				<td><?php echo $reclamation['date']; ?></td>
-				<td><?php echo $reclamation['objet']; ?></td>
-				<td><?php echo $reclamation['description']; ?></td>
-                               
-				<td>
-					<a class="btn btn-primary" href="supp.php?id=<?php echo $reclamation['id']; ?>">Supprimer</a>
+                    <form action="" method="POST">
+                    <table border="4" align="center">
+                <tr>
+                    <td>
+                        <label for="id">id:
+                        </label>
+                    </td>
+                    <td><input type="number" name="id" id="id" maxlength="20"></td>
+                </tr>
+				<tr>
+                    <td>
+                        <label for="date">date:
+                        </label>
+                    </td>
+                    <td><input type="date" name="date" id="date" ></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="objet">objet:
+                        </label>
+                    </td>
+                    <td><input type="text" name="objet" id="objet" maxlength="20"></td>
                     
-				</td>
-                <td>
-					<a class="btn btn-primary" href="ajouterrep.php">répondre</a>
-
-				</td>
-                
-                
-			</tr>
-            
-			<?php
-				}
-			?>
-             
-		</table>
-        <div style = "position:relative; left:690px; top:10px;  ">
-        <td>
-                       <a  class="btn btn-primary" href="modifrec.php?id=<?PHP echo $reclamation['id'];?>"> Modifier </a>
-               </td>
-               </div>
-
-<div style = "position:relative; left:780px; top:-27px;  ">
-        
-
-
-        <form method="get" action="blank.php">
-                <button  type="submit" class="btn btn-primary" name="trie">Trie</button>
-           </form>
-            </div>
-            <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
-
-            <h1 class="btn btn-primary" onclick="print()">Print</h1>
- 
+                </tr>
+                <tr>
+                    <td>
+                        <label for="description">description:
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="description" id="description">
+                    </td>
+                </tr>
+                   
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Repondre"> 
+                    </td>
+                    <td>
+                        <input type="reset" value="Annuler" >
+                    </td>
+                </tr>
+                </table><a  href="blank.php "  class="btn btn-primary" >affichier les reclamation</a>
+                    </form>
+  
+        <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
 
 
-
-            <div id="google_translate_element"></div><script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'ko', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                 </div>
                 <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
-
-
- 
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -569,5 +511,3 @@ function googleTranslateElementInit() {
 </body>
 
 </html>
-
-

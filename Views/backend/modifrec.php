@@ -1,3 +1,55 @@
+<?php
+				//modifier 
+
+                include_once "../../Controller/reclamationcc.php";
+                include_once "../../config.php";
+                include_once '../../Model/reclamationn.php';
+                
+              
+
+
+                $error = "";
+                
+                $reclamation = null;
+                
+                // create an instance of the controller
+                $reclamationC = new reclamationC();
+                if (
+                     isset($_POST["id"]) &&
+                    isset($_POST["date"]) &&
+                    isset($_POST["objet"]) &&
+                    isset($_POST["description"])
+                
+                ) {
+                    if (
+                         !empty($_POST["id"]) &&
+                        !empty($_POST["date"]) &&
+                        !empty($_POST["objet"]) &&
+                        !empty($_POST["description"])
+                    ) {
+                        $reclamation = new reclamation(
+                            $_POST['id'],
+                            $_POST['date'],
+                            $_POST['objet'],
+                            $_POST['description']
+                        );
+                        $reclamationC->modifierreclamation($reclamation, $_POST['id']);
+                      // header('Location:blank.php');
+                        header('refresh:2;url=blank.php');
+                    } else
+                        echo "Missing information";
+                }
+                
+///fi                 
+
+ ?>
+
+               <?php
+			if (isset($_POST['id'])){
+				$reclamation = $reclamationC->recupererreclamation($_POST['id']);}
+				
+		  ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,6 +108,7 @@
                 Interface
             </div>
 
+            
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -116,7 +169,7 @@
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item active" href="blank.php">Reclamation</a>
+                        <a class="collapse-item active" href="blank.php">Modifier une Reclamation</a>
                     </div>
                 </div>
             </li>
@@ -207,13 +260,9 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">5+</span>
+                                <span class="badge badge-danger badge-counter">3+</span>
                             </a>
                             <!-- Dropdown - Alerts -->
-
-                            
- 
-
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
@@ -364,148 +413,61 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Bienvenue Admin</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Bienvenue</h1>
  
-                     
-                    <?php
-
- include_once "../../Controller/reclamationcc.php";
- include_once "../../config.php";
- include_once '../../Model/reclamationn.php';
- //include 'C:\wamp64\www\Controller/reclamationcc.php';
-//require_once 'C:\xampp\htdocs\Produit_backend\produit.php';
-	$reclamationC=new reclamationc();
-	$listereclamation=$reclamationC->afficherreclamation(); 
-?>
-
-
-<?PHP
-
-//pagination
-
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$perpage = isset($GET['per-page']) && $_GET['per-page'] <= 50 ? (int)$_GET['per-page'] : 4 ;
-$reclamationC = new reclamationC();
-$listereclamation = $reclamationC->pagination($page, $perpage);
-$totalP = $reclamationC->calcTotalRows($perpage);
-
-
-
-//recherche
-
-if(isset($_GET['recherche']))
-{
-    $search_value=$_GET["recherche"];
-    $listereclamation=$reclamationC->recherche($search_value);
-}
-
- //trie
- if(isset($_GET['trie']))
- {
-     $listereclamation = $reclamationC->triCroissant($page, $perpage);
- }
-
-
-?>
-
-
+      
  
-
-<button><a href="../ajouter.php"   >Ajouter une reclamation</a></button>
-		<center><h1>Liste des reclamations</h1></center>
-		<table border="1" align="center">
-			<tr>
-            <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
-				<th>ID</th>
-				<th>Date</th>
-				<th>Objet</th>
-				<th>Description</th>
-				<th>Supprimer</th>
-				<th>Réponse</th>
-                 
-                
-                <div class="row">
-    
-                                        <nav>
-                                            <ul class="pagination">
-                                                <?php
-
-                                                    for ($x = 1; $x <= $totalP; $x++) :
-                                                ?>
-                                                
-                                                <li class="page-item">
-                                                    <a class="page-link" href="?page=<?php echo $x; ?>&per-page=<?php echo $perpage; ?>"><?php echo $x; ?></a><?php endfor; ?>
-                                                </li>
-
-                                            </ul>
-                                        </nav>
-                                    </div>
-			</tr>
-            
-                                                       <form  method="get" action="blank.php">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher un reclamtion"
-                                                                    aria-label="Search" aria-describedby="basic-addon2" name="recherche">
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-primary" type="submit" value="Chercher">
-                                                                        <i class="fas fa-search fa-sm"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                           </form>
-			<?php
-				foreach($listereclamation as $reclamation){
-			?>
-
-			<tr>
-				<td><?php echo $reclamation['id']; ?></td>
-				<td><?php echo $reclamation['date']; ?></td>
-				<td><?php echo $reclamation['objet']; ?></td>
-				<td><?php echo $reclamation['description']; ?></td>
-                               
-				<td>
-					<a class="btn btn-primary" href="supp.php?id=<?php echo $reclamation['id']; ?>">Supprimer</a>
-                    
-				</td>
-                <td>
-					<a class="btn btn-primary" href="ajouterrep.php">répondre</a>
-
-				</td>
-                
-                
-			</tr>
-            
-			<?php
-				}
-			?>
-             
-		</table>
-        <div style = "position:relative; left:690px; top:10px;  ">
-        <td>
-                       <a  class="btn btn-primary" href="modifrec.php?id=<?PHP echo $reclamation['id'];?>"> Modifier </a>
-               </td>
-               </div>
-
-<div style = "position:relative; left:780px; top:-27px;  ">
-        
-
-
-        <form method="get" action="blank.php">
-                <button  type="submit" class="btn btn-primary" name="trie">Trie</button>
-           </form>
-            </div>
-            <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
-
-            <h1 class="btn btn-primary" onclick="print()">Print</h1>
- 
-
-
-
-            <div id="google_translate_element"></div><script type="text/javascript">
+		<center><h1>Modifier une Reclamations</h1></center>
+		 
+       
+<div style = "position:relative; left:800px; top:2px;  ">
+<div id="google_translate_element"></div><script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'ko', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
 }
 </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+         
+            </div>
+             <style>  hr { border-top: 4px solid #095484;}</style><hr/>
+
+
+                <!-- /.container-fluid -->
+
+            
+                
+        
+            <div class="container-fluid">
+                    <form method="POST" action="" id="form">
+ 
+                    <div class="form-group">
+                            <label for="id">id</label>
+                            <input type="number" class="form-control" name="id" id="id"  value="<?PHP echo $reclamation['id']; ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date">date</label>
+                            <input type="date" class="form-control" name="date" id="date"  value="<?PHP echo $reclamation['date']; ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="objet">objet</label>
+                            <input type="text" class="form-control" name="objet" id="objet"  value="<?PHP echo $reclamation['objet']; ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">description</label>
+                            <input type="text" class="form-control" name="description" id="description" value="<?PHP echo $reclamation['description']; ?>" required>
+                        </div>
+
+                        <button type="submit" value="Envoyer" class="btn btn-primary" >Modifier les donnee</button>
+
+                    </form>
+                    <br>
+                    <div id="erreur"></div>
+
                 </div>
                 <!-- /.container-fluid -->
 
@@ -513,9 +475,16 @@ function googleTranslateElementInit() {
             <!-- End of Main Content -->
 
 
- 
 
-            <!-- Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+
+            <!-- End of Main Content -->
+
+            <!-- Footer  
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
@@ -523,7 +492,7 @@ function googleTranslateElementInit() {
                     </div>
                 </div>
             </footer>
-            <!-- End of Footer -->
+              End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
@@ -569,5 +538,3 @@ function googleTranslateElementInit() {
 </body>
 
 </html>
-
-

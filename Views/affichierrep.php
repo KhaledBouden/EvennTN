@@ -1,43 +1,4 @@
-
-
-
-<?php
-include '../Controller/reclamationcc.php';
-include '../model/reclamationn.php';
- include_once '../config.php'; 
-   $error = "";
-    // create adherent
-    $reclamation = null;
-    // create an instance of the controller
-    $reclamationC = new reclamationC();
-    if (
-        isset($_POST["id"]) &&
-		isset($_POST["date"]) &&		
-        isset($_POST["objet"]) &&
-		isset($_POST["description"])  
-         
-    ) {
-        if (
-            !empty($_POST["id"]) && 
-			!empty($_POST['date']) &&
-            !empty($_POST["objet"]) && 
-			!empty($_POST["description"]) 
-        ) {
-            $reclamation = new reclamation(
-                $_POST['id'],
-				$_POST['date'],
-                $_POST['objet'], 
-				$_POST['description'] 
-            );
-            $reclamationC->ajouterreclamation($reclamation);
-           // header('Location:afficherListereclamation.php');
-        }
-        else
-            $error = "Missing information";
-    }
-
-?>
-
+ 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -154,98 +115,78 @@ include '../model/reclamationn.php';
 <div class="container-fluid ">
         <div class="d-flex flex-column text-center mb-1">
             <h5 class="text-primary mb-2">Bienvenue</h5>
-            <h1 class="m-0">Espace Reclamation </h1>
+            <h1 class="m-0">listes des Reponses</h1>
         </div>
- 
     <!-- Contact Start -->
-    <div class="container-fluid pt-4">
-        <div class="d-flex flex-column text-center mb-5">
-            <h5 class="text-primary mb-3">Contact Us</h5>
-            <h1 class="m-0">Contact For Any Query</h1>
+    <div class="container-fluid pt-2">
+        <div class="d-flex flex-column text-center mb-2">
+           
+             
         </div>
-        <div class="row">
-            
+        <div class="row"> </div>
+        <?php
+
+include_once "../Controller/reponsecc.php";
+include_once "../config.php";
+include_once '../Model/reponsee.php';
+//include 'C:\wamp64\www\Controller/reclamationcc.php';
+//require_once 'C:\xampp\htdocs\Produit_backend\produit.php';
+   $reponseC=new reponsec();
+   $listereponse=$reponseC->afficherreponse(); 
+?>
+
+
+<button><a href="ajouter.php">Ajouter une reclamation</a></button>
+       <table border="1" align="center">
+           <tr>
+           <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
+               <th>id</th>
+               <th>Date </th>
+               <th>Objet  </th>
+               <th>reponses  </th>
+           </tr>
+           
+           <?php
+               foreach($listereponse as $reponse){
+           ?>
+           <tr>
+               <td><?php echo $reponse['id']; ?></td>
+               <td><?php echo $reponse['date']; ?></td>
+               <td><?php echo $reponse['objet']; ?></td>
+               <td><?php echo $reponse['description']; ?></td>
+               <td> 
+                       <input type="hidden" value=<?PHP echo $reponse['id']; ?> name="id">    
+                   </form> 
+               </td>
+           </tr>
+           <?php
+               }
+           ?>
+       </table>
+       <div id="google_translate_element"></div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'hi', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<h1 class="btn btn-primary" onclick="print()">Print</h1>
+ <br><br><br><br><br><br> <br><br> 
+
+
             <div class="col-12">
                 <div class="contact-form bg-white">
                     <div id="success"></div>
-                    <form  action=" " method="POST"   >
-                    
-                    <table border="4" align="center">
-                <tr>
-                    <td>
-                        <label for="id">id:
-                        </label>
-                    </td>
-                    <td><input type="number" name="id" id="id" maxlength="20" required="id?"></td>
-                </tr>
-				<tr>
-                    <td>
-                        <label for="date">date:
-                        </label>
-                    </td>
-                    <td><input type="date" name="date" id="date" required="date?"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="objet">objet:
-                        </label>
-                    </td>
-                    <td><input type="text" name="objet" id="objet" required="objet?" maxlength="20"></td>
-                    
-                </tr>
-                <tr>
-                    <td>
-                        <label  for="description" >description:
-                        </label>
-                    </td>
-                    <td>
-                        <input type="text" name="description" id="description" required="description?">
-                    </td>
-                </tr>
-                   
-                <tr>
-                    <td></td>
-                    <td>
-                        <input  id="a"  style= "background-color:red; "   type="submit" value="Envoyer reclamation"> 
-                         
- 
- 
 
-                    </td>
-
-
-  
-
-
-                    <td>
-                        <input style= "background-color:red; " type="reset"  value="Annuler" >
-                    </td> 
-                </tr>
-                </table><a  href="backend/blank.php "  class="btn btn-primary" >Backend</a>
-                <a   href="affichierrep.php "  class="btn btn-primary"   > Affichier les reponses</a>
-                    </form>
+                     
                     
                 </div>
             </div>
         </div>
     </div>
-    
     <!-- Contact End -->
- 
-
-    <div id="google_translate_element"></div><script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'ko', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 
-
-
-
-
-
-<script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <!-- Footer Start -->
     <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
         <div class="row pt-5">

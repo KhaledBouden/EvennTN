@@ -1,5 +1,5 @@
 <?php
-	class reclamation {
+	class reponse {
 		private $id=null;
 		private $date=null;
 		private $objet=null;
@@ -32,14 +32,15 @@
 		}
 		 // $reclamation = new reclamation ('id', 'date', 'objet', 'description' );
 
-		  function __construct($id, $date, $objet, $description){
+		 function __construct($id, $date, $objet, $description){
 			$this->id=$id;
 			$this->date=$date;
 			$this->objet=$objet;
 			$this->description=$description;
-		  }
-
-		 
+			 
+			// $this->catego=$catego;
+		}
+		
 	}
 
 
