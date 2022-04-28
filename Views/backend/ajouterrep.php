@@ -406,24 +406,24 @@ include '../../model/reponsee.php';
                     <table border="4" align="center">
                 <tr>
                     <td>
-                        <label for="id">id:
+                        <label for="id"   >id:
                         </label>
                     </td>
-                    <td><input type="number" name="id" id="id" maxlength="20"></td>
+                    <td><input type="number" name="id" id="id" maxlength="20" required="id?"  ></td>
                 </tr>
 				<tr>
                     <td>
                         <label for="date">date:
                         </label>
                     </td>
-                    <td><input type="date" name="date" id="date" ></td>
+                    <td><input type="date" name="date" id="date"  required="date?" ></td>
                 </tr>
                 <tr>
                     <td>
                         <label for="objet">objet:
                         </label>
                     </td>
-                    <td><input type="text" name="objet" id="objet" maxlength="20"></td>
+                    <td><input type="text" name="objet" id="objet" maxlength="20" required="objet?" ></td>
                     
                 </tr>
                 <tr>
@@ -432,7 +432,7 @@ include '../../model/reponsee.php';
                         </label>
                     </td>
                     <td>
-                        <input type="text" name="description" id="description">
+                        <input type="text" name="description" id="description"  required="description?" >
                     </td>
                 </tr>
                    
