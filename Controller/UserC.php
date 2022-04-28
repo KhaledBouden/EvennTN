@@ -2,6 +2,13 @@
     include "C://xampp/htdocs/validation/config.php";
    // include "C://wamp64/www/solis/config.php";
  // include '../../Controller/InfoC.php';
+
+
+ use PHPMailer\PHPMailer\PHPMailer; 
+use PHPMailer\PHPMailer\Exception; 
+require 'PHPMailer/Exception.php'; 
+require 'PHPMailer/PHPMailer.php'; 
+require 'PHPMailer/SMTP.php'; 
     class UserC {
 
         public function recupererUserInfo($username)
@@ -228,7 +235,7 @@
         public function triCroissant($page, $perPage)
         {
             $start = ($page > 0) ? ($page * $perPage) - $perPage : 0;
-            $sql = "SELECT * FROM user order by username DESC LIMIT {$start},{$perPage}";
+            $sql = "SELECT * FROM user order by username ASC LIMIT {$start},{$perPage}";
             $db = config::getConnexion();
             try {
                 $liste = $db->prepare($sql);
@@ -254,4 +261,51 @@
                 die('Erreur: ' . $e->getMessage());
             }
         }
+
+        function mailcmd($user){
+			$mail = new PHPMailer; 
+			$username=$user->getUsername();
+			$email=$user->getEmail();
+            
+			
+		 
+		$mail->isSMTP();                      // Set mailer to use SMTP 
+		$mail->Host = 'smtp.gmail.com';       // Specify main and backup SMTP servers 
+		$mail->SMTPAuth = true;               // Enable SMTP authentication 
+		$mail->Username = 'khaledturki20182017@gmail.com';   // SMTP usern
+
+        $mail->Password = 'khaled2018turki2017';   // SMTP password 
+		$mail->SMTPSecure = 'tls';            // Enable TLS encryption, `ssl` also accepted 
+		$mail->Port = 587;                    // TCP port to connect to 
+		 
+		// Sender info 
+		$mail->setFrom('khaledturki20182017@gmail.com', 'eventn'); 
+		$mail->addReplyTo('khaledturki20182017@gmail.com', 'eventn'); 
+		 
+		// Add a recipient 
+		$mail->addAddress($user->getEmail()); 
+		 
+		//$mail->addCC('cc@example.com'); 
+		//$mail->addBCC('bcc@example.com'); 
+        $mail->isHTML(true); 
+        // Mail subject 
+		$mail->Subject = 'Vote commande de Eventn'; 
+
+        // Mail body content 
+		$bodyContent = '<html><body>';
+		$bodyContent .= '<h1 style="color:#f40;">Vote commande : </h1>'; 
+		$bodyContent .= '<h4 style="color:#dc143c;">Nom : </h4> '; 
+		$bodyContent .=   $username ; 
+		$bodyContent .= '<h4 style="color:#dc143c;">email : </h4> '; 
+		$bodyContent .=   $email ; 
+		$bodyContent .= '<html><body>';
+		$mail->Body    = $bodyContent; 
+        if(!$mail->send()) { 
+			echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo; 
+		} else { 
+			echo 'Message has been sent.'; 
+		} 
+			 }
+
+
     }
