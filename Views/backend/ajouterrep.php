@@ -403,7 +403,7 @@ include '../../model/reponsee.php';
  
                      
                     <form action="" method="POST">
-                    <table border="4" align="center">
+                    <table class="table table-striped" border="4" align="center">
                 <tr>
                     <td>
                         <label for="id"   >id:

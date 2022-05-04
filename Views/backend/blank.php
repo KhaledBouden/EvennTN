@@ -413,7 +413,7 @@ if(isset($_GET['recherche']))
 
 <button><a href="../ajouter.php"   >Ajouter une reclamation</a></button>
 		<center><h1>Liste des reclamations</h1></center>
-		<table border="1" align="center">
+		<table class="table table-striped" border="1" align="center">
 			<tr>
             <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
 				<th>ID</th>
@@ -421,7 +421,7 @@ if(isset($_GET['recherche']))
 				<th>Objet</th>
 				<th>Description</th>
 				<th>Supprimer</th>
-				<th>Réponse</th>
+				 
                  
                 
                 <div class="row">
@@ -467,10 +467,7 @@ if(isset($_GET['recherche']))
 					<a class="btn btn-primary" href="supp.php?id=<?php echo $reclamation['id']; ?>">Supprimer</a>
                     
 				</td>
-                <td>
-					<a class="btn btn-primary" href="ajouterrep.php">répondre</a>
-
-				</td>
+               
                 
                 
 			</tr>
@@ -480,13 +477,18 @@ if(isset($_GET['recherche']))
 			?>
              
 		</table>
-        <div style = "position:relative; left:690px; top:10px;  ">
+        <div style = "position:relative; left:690px; top:1px;  ">
         <td>
                        <a  class="btn btn-primary" href="modifrec.php?id=<?PHP echo $reclamation['id'];?>"> Modifier </a>
                </td>
                </div>
 
-<div style = "position:relative; left:780px; top:-27px;  ">
+               <td>
+					<a style = "position:relative; left:595px; top:-37px; "class="btn btn-primary" href="ajouterrep.php">répondre</a>
+
+				</td>
+
+<div style = "position:relative; left:780px; top:-75px;  ">
         
 
 
@@ -498,7 +500,7 @@ if(isset($_GET['recherche']))
             </div>
             <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
 
-            <h1 class="btn btn-primary" onclick="print()">Print</h1>
+             
  
 
 

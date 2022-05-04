@@ -1,6 +1,8 @@
 
 
 
+
+
 <?php
 include '../Controller/reclamationcc.php';
 include '../model/reclamationn.php';
@@ -152,15 +154,15 @@ include '../model/reclamationn.php';
     <!-- Navbar End -->
  
 <div class="container-fluid ">
-        <div class="d-flex flex-column text-center mb-1">
-            <h5 class="text-primary mb-2">Bienvenue</h5>
+        <div class="d-flex flex-column text-center mb-0">
+            <h5 class="text-primary mb-0">Bienvenue</h5>
             <h1 class="m-0">Espace Reclamation </h1>
         </div>
  
     <!-- Contact Start -->
     <div class="container-fluid pt-4">
         <div class="d-flex flex-column text-center mb-5">
-            <h5 class="text-primary mb-3">Contact Us</h5>
+            <h5 class="text-primary mb-0">Contact Us</h5>
             <h1 class="m-0">Contact For Any Query</h1>
         </div>
         <div class="row">
@@ -170,7 +172,7 @@ include '../model/reclamationn.php';
                     <div id="success"></div>
                     <form  action=" " method="POST"   >
                     
-                    <table border="4" align="center">
+                    <table class="table table-dark table-hover" border="4" align="center">
                 <tr>
                     <td>
                         <label for="id">id:
@@ -212,11 +214,7 @@ include '../model/reclamationn.php';
  
 
                     </td>
-
-
-  
-
-
+ 
                     <td>
                         <input style= "background-color:red; " type="reset"  value="Annuler" >
                     </td> 
@@ -230,18 +228,64 @@ include '../model/reclamationn.php';
         </div>
     </div>
     
+
+    
+
+    <?php
+
+include_once "../Controller/reclamationcc.php";
+include_once "../config.php";
+include_once '../Model/reclamationn.php';
+//include 'C:\wamp64\www\Controller/reclamationcc.php';
+//require_once 'C:\xampp\htdocs\Produit_backend\produit.php';
+   $reclamationC=new reclamationc();
+   $listereclamation=$reclamationC->afficherreclamation(); 
+?>
+    <table class="table table-striped" border="1" align="center">
+           <tr>
+           <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
+               <th>id</th>
+               <th>Date </th>
+               <th>Objet  </th>
+               <th>reponses  </th>
+               <th>Supprimer</th>
+               <th>modifier</th>
+           </tr>
+           
+           <?php
+				foreach($listereclamation as $reclamation){
+			?>
+
+			 
+				 <?php $a=$reclamation['id']; ?> 
+				 <?php $b=$reclamation['date']; ?> 
+				 <?php $c=$reclamation['objet']; ?> 
+				 <?php $d=$reclamation['description']; ?> 
+                         
+           </tr>
+           <?php
+               }
+           ?>
+                <td><?php echo $a?></td>
+               <td><?php echo $b?></td>
+               <td><?php echo $c?></td>
+               <td><?php echo $d?></td>
+               <td>
+					<a class="btn btn-primary" href="supprec.php?id=<?php echo $reclamation['id']; ?>">Supprimer</a>
+                    <td>
+                       <a  class="btn btn-primary" href="modifrec.php?id=<?PHP echo $reclamation['id'];?>"> Modifier </a>
+               </td>
+				</td>
+  
+       </table>
     <!-- Contact End -->
- 
+    <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
 
     <div id="google_translate_element"></div><script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'ko', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
 }
 </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-
-
-
 
 
 

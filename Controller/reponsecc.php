@@ -14,10 +14,10 @@
 			catch(Exception $e){
 				die('Erreur:'. $e->getMeesage());
 			}
-		}/*
-		function supprimerreclamation($id){
+		}
+		function supprimerreponse($id){
 			include_once "../config.php";
-			$sql="DELETE FROM reclamation WHERE id=:id";
+			$sql="DELETE FROM reponse WHERE id=:id";
 			$db = config::getConnexion();
 			$req=$db->prepare($sql);
 			$req->bindValue(':id', $id);
@@ -27,7 +27,7 @@
 			catch(Exception $e){
 				die('Erreur:'. $e->getMeesage());
 			}
-		}*/
+		}
 		public function ajouterreponse($reponse){
 			
 			$sql="INSERT INTO reponse (id, date, objet, description) 

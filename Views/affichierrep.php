@@ -137,13 +137,14 @@ include_once '../Model/reponsee.php';
 
 
 <button><a href="ajouter.php">Ajouter une reclamation</a></button>
-       <table border="1" align="center">
+       <table  class="table table-striped" border="1" align="center">
            <tr>
            <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
                <th>id</th>
                <th>Date </th>
                <th>Objet  </th>
                <th>reponses  </th>
+               <th>suppression  </th>
            </tr>
            
            <?php
@@ -154,15 +155,19 @@ include_once '../Model/reponsee.php';
                <td><?php echo $reponse['date']; ?></td>
                <td><?php echo $reponse['objet']; ?></td>
                <td><?php echo $reponse['description']; ?></td>
-               <td> 
-                       <input type="hidden" value=<?PHP echo $reponse['id']; ?> name="id">    
-                   </form> 
-               </td>
+                
+               <td>
+					<a class="btn btn-primary" href="supprep.php?id=<?php echo $reponse['id']; ?>">Supprimer</a>
+                    
+				</td>
            </tr>
            <?php
                }
            ?>
        </table>
+
+
+
        <div id="google_translate_element"></div>
 <script type="text/javascript">
 function googleTranslateElementInit() {
@@ -170,7 +175,7 @@ function googleTranslateElementInit() {
 }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<h1 class="btn btn-primary" onclick="print()">Print</h1>
+ 
  <br><br><br><br><br><br> <br><br> 
 
 
