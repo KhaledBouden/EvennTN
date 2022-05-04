@@ -1,55 +1,3 @@
-<?php
-				//modifier 
-
-                include_once "../../Controller/reclamationcc.php";
-                include_once "../../config.php";
-                include_once '../../Model/reclamationn.php';
-                
-              
-
-
-                $error = "";
-                
-                $reclamation = null;
-                
-                // create an instance of the controller
-                $reclamationC = new reclamationC();
-                if (
-                    
-                    isset($_POST["date"]) &&
-                    isset($_POST["objet"]) &&
-                    isset($_POST["description"])
-                
-                ) {
-                    if (
-                        
-                        !empty($_POST["date"]) &&
-                        !empty($_POST["objet"]) &&
-                        !empty($_POST["description"])
-                    ) {
-                        $reclamation = new reclamation(
-                           
-                            $_POST['date'],
-                            $_POST['objet'],
-                            $_POST['description']
-                        );
-                        $reclamationC->modifierreclamation($reclamation, $_POST['id']);
-                      // header('Location:blank.php');
-                        header('refresh:2;url=blank.php');
-                    } else
-                        echo "Missing information";
-                }
-                
-///fi                 
-
- ?>
-
-               <?php
-			if (isset($_POST['id'])){
-				$reclamation = $reclamationC->recupererreclamation($_POST['id']);}
-				
-		  ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,7 +56,6 @@
                 Interface
             </div>
 
-            
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -169,7 +116,7 @@
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item active" href="blank.php">Modifier une Reclamation</a>
+                        <a class="collapse-item active" href="blank.php">Reclamation</a>
                     </div>
                 </div>
             </li>
@@ -260,9 +207,13 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <span class="badge badge-danger badge-counter">5+</span>
                             </a>
                             <!-- Dropdown - Alerts -->
+
+                            
+ 
+
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
@@ -413,78 +364,78 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Bienvenue</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Bienvenue Admin</h1>
  
-      
- 
-		<center><h1>Modifier une Reclamations</h1></center>
-		 
-       
-<div style = "position:relative; left:800px; top:2px;  ">
-<div id="google_translate_element"></div><script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'ko', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
+                    
 
 
 
-         
-            </div>
-             <style>  hr { border-top: 4px solid #095484;}</style><hr/>
+
+                    <?php
+
+include_once "../../Controller/reponsecc.php";
+include_once "../../config.php";
+include_once '../../Model/reponsee.php';
+//include 'C:\wamp64\www\Controller/reclamationcc.php';
+//require_once 'C:\xampp\htdocs\Produit_backend\produit.php';
+   $reponseC=new reponsec();
+   $listereponse=$reponseC->afficherreponse(); 
+?>
 
 
-                <!-- /.container-fluid -->
-
-            
+<button><a href="blank.php">affichier les reclamation</a></button>
+       <table  class="table table-striped" border="1" align="center">
+           <tr>
+           <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
+               <th>id</th>
+               <th>Date </th>
+               <th>Objet  </th>
+               <th>reponses  </th>
+               <th>suppression  </th>
+           </tr>
+           
+           <?php
+               foreach($listereponse as $reponse){
+           ?>
+           <tr>
+               <td><?php echo $reponse['id']; ?></td>
+               <td><?php echo $reponse['date']; ?></td>
+               <td><?php echo $reponse['objet']; ?></td>
+               <td><?php echo $reponse['description']; ?></td>
                 
-        
-            <div class="container-fluid">
-                    <form method="POST" action="" id="form">
+               <td>
+					<a class="btn btn-primary" href="../supprep.php?id=<?php echo $reponse['id']; ?>">Supprimer</a>
+                    
+				</td>
+           </tr>
+           <?php
+               }
+           ?>
+       </table>
+       <a class="btn btn-primary" href="modifrep.php?id=<?php echo $reponse['id']; ?>">modifier</a>
+
+
+       <div id="google_translate_element"></div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'hi', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
  
-                    <div class="form-group">
-                            <label for="id">id</label>
-                            <input type="number" class="form-control" name="id" id="id"  value="<?PHP echo $reclamation['id']; ?>" required>
-                        </div>
+ 
 
-                        <div class="form-group">
-                            <label for="date">date</label>
-                            <input type="date" class="form-control" name="date" id="date"  value="<?PHP echo $reclamation['date']; ?>" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="objet">objet</label>
-                            <input type="text" class="form-control" name="objet" id="objet"  value="<?PHP echo $reclamation['objet']; ?>" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="description">description</label>
-                            <input type="text" class="form-control" name="description" id="description" value="<?PHP echo $reclamation['description']; ?>" required>
-                        </div>
-
-                        <button type="submit" value="Envoyer" class="btn btn-primary" >Modifier les donnee</button>
-
-                    </form>
-                    <br>
-                    <div id="erreur"></div>
-
-                </div>
-                <!-- /.container-fluid -->
+<div style = "position:relative; left:780px; top:-75px;  ">
+      
 
             </div>
             <!-- End of Main Content -->
 
 
+ 
 
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-
-
-            <!-- End of Main Content -->
-
-            <!-- Footer  
+            <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
@@ -492,7 +443,7 @@ function googleTranslateElementInit() {
                     </div>
                 </div>
             </footer>
-              End of Footer -->
+            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
@@ -538,3 +489,5 @@ function googleTranslateElementInit() {
 </body>
 
 </html>
+
+

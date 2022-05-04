@@ -1,53 +1,50 @@
 <?php
 				//modifier 
 
-                include_once "../../Controller/reclamationcc.php";
+                include_once "../../Controller/reponsecc.php";
                 include_once "../../config.php";
-                include_once '../../Model/reclamationn.php';
+                include_once '../../Model/reponsee.php';
                 
               
 
 
                 $error = "";
                 
-                $reclamation = null;
+                $reponse = null;
                 
                 // create an instance of the controller
-                $reclamationC = new reclamationC();
+                $reponseC = new reponseC();
                 if (
-                    
+                     isset($_POST["id"]) &&
                     isset($_POST["date"]) &&
                     isset($_POST["objet"]) &&
                     isset($_POST["description"])
                 
                 ) {
                     if (
-                        
+                         !empty($_POST["id"]) &&
                         !empty($_POST["date"]) &&
                         !empty($_POST["objet"]) &&
                         !empty($_POST["description"])
                     ) {
-                        $reclamation = new reclamation(
-                           
+                        $reponse = new reponse(
+                            $_POST['id'],
                             $_POST['date'],
                             $_POST['objet'],
                             $_POST['description']
                         );
-                        $reclamationC->modifierreclamation($reclamation, $_POST['id']);
+                        $reponseC->modifierreponse($reponse, $_POST['id']);
                       // header('Location:blank.php');
-                        header('refresh:2;url=blank.php');
+                       header('refresh:2;url=affichierrepadmin.php');
                     } else
                         echo "Missing information";
                 }
-                
-///fi                 
-
  ?>
 
                <?php
 			if (isset($_POST['id'])){
-				$reclamation = $reclamationC->recupererreclamation($_POST['id']);}
-				
+				$reponse = $reponseC->recupererreponse($_POST['id']);}
+
 		  ?>
 
 <!DOCTYPE html>
@@ -444,22 +441,22 @@ function googleTranslateElementInit() {
  
                     <div class="form-group">
                             <label for="id">id</label>
-                            <input type="number" class="form-control" name="id" id="id"  value="<?PHP echo $reclamation['id']; ?>" required>
+                            <input type="number" class="form-control" name="id" id="id"  value="<?PHP echo $reponse['id']; ?>" required>
                         </div>
 
                         <div class="form-group">
                             <label for="date">date</label>
-                            <input type="date" class="form-control" name="date" id="date"  value="<?PHP echo $reclamation['date']; ?>" required>
+                            <input type="date" class="form-control" name="date" id="date"  value="<?PHP echo $reponse['date']; ?>" required>
                         </div>
 
                         <div class="form-group">
                             <label for="objet">objet</label>
-                            <input type="text" class="form-control" name="objet" id="objet"  value="<?PHP echo $reclamation['objet']; ?>" required>
+                            <input type="text" class="form-control" name="objet" id="objet"  value="<?PHP echo $reponse['objet']; ?>" required>
                         </div>
 
                         <div class="form-group">
                             <label for="description">description</label>
-                            <input type="text" class="form-control" name="description" id="description" value="<?PHP echo $reclamation['description']; ?>" required>
+                            <input type="text" class="form-control" name="description" id="description" value="<?PHP echo $reponse['description']; ?>" required>
                         </div>
 
                         <button type="submit" value="Envoyer" class="btn btn-primary" >Modifier les donnee</button>

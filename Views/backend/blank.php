@@ -494,7 +494,8 @@ if(isset($_GET['recherche']))
 
         <form method="get" action="blank.php">
                 <button  type="submit" class="btn btn-primary" name="trie">Trie</button>
-                <a   href="../affichierrep.php "  class="btn btn-primary"   > Affichier les reponses</a>
+                
+                <a   href="affichierrepadmin.php "  class="btn btn-primary"   > Affichier les reponses</a>
            </form>
            
             </div>

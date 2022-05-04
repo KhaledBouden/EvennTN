@@ -30,13 +30,13 @@
 		}
 		public function ajouterreclamation($reclamation){
 			
-			$sql="INSERT INTO reclamation (id, date, objet, description) 
-			VALUES (:id,:date,:objet, :description )";
+			$sql="   INSERT INTO reclamation ( date, objet, description) 
+			VALUES (:date,:objet, :description )";
 			$db = config::getConnexion();
 			try{
 				$query = $db->prepare($sql);
 				$query->execute([
-					'id' => $reclamation->getid(),
+					 
 					'date' => $reclamation->getdate(),
 					'objet' => $reclamation->getobjet(),
 					'description' => $reclamation->getdescription()

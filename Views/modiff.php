@@ -1,42 +1,54 @@
-
-
-
 <?php
-include '../Controller/reclamationcc.php';
-include '../model/reclamationn.php';
- include_once '../config.php'; 
-   $error = "";
-    // create adherent
-    $reclamation = null;
-    // create an instance of the controller
-    $reclamationC = new reclamationC();
-    if (
-         
-		isset($_POST["date"]) &&		
-        isset($_POST["objet"]) &&
-		isset($_POST["description"])  
-         
-    ) {
-        if (
-            
-			!empty($_POST['date']) &&
-            !empty($_POST["objet"]) && 
-			!empty($_POST["description"]) 
-        ) {
-            $reclamation = new reclamation(
-                 
-				$_POST['date'],
-                $_POST['objet'], 
-				$_POST['description'] 
-            );
-            $reclamationC->ajouterreclamation($reclamation);
-           // header('Location:afficherListereclamation.php');
-        }
-        else
-            $error = "Missing information";
-    }
+				//modifier 
 
-?>
+                include_once "../Controller/reclamationcc.php";
+                include_once "../config.php";
+                include_once '../Model/reclamationn.php';
+                
+               
+                $error = "";
+                
+                $reclamation = null;
+                
+                // create an instance of the controller
+                $reclamationC = new reclamationC();
+                if (
+                     
+                    isset($_POST["date"]) &&
+                    isset($_POST["objet"]) &&
+                    isset($_POST["description"])
+                
+                ) {
+                    if (
+                         
+                        !empty($_POST["date"]) &&
+                        !empty($_POST["objet"]) &&
+                        !empty($_POST["description"])
+                    ) {
+                        $reclamation = new reclamation(
+                            
+                            $_POST['date'],
+                            $_POST['objet'],
+                            $_POST['description']
+                        );
+                        $reclamationC->modifierreclamation($reclamation, $_POST['id']);
+                      // header('Location:blank.php');
+                        header('refresh:2;url=ajouter.php');
+                    } else
+                        echo "Missing information";
+                }
+                
+///fi                 
+
+ ?>
+
+               <?php
+			if (isset($_POST['id'])){
+				$reclamation = $reclamationC->recupererreclamation($_POST['id']);}
+				
+		  ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -151,128 +163,58 @@ include '../model/reclamationn.php';
     </div>
     <!-- Navbar End -->
  
+
+
 <div class="container-fluid ">
         <div class="d-flex flex-column text-center mb-0">
             <h5 class="text-primary mb-0">Bienvenue</h5>
             <h1 class="m-0">Espace Reclamation </h1>
         </div>
  
-    <!-- Contact Start -->
-    <div class="container-fluid pt-4">
-        <div class="d-flex flex-column text-center mb-5">
-            <h5 class="text-primary mb-0">Contact Us</h5>
-            <h1 class="m-0">Contact For Any Query</h1>
-        </div>
-        <div class="row">
-            
-            <div class="col-12">
-                <div class="contact-form bg-white">
-                    <div id="success"></div>
-                    <form  action=" " method="POST"   >
-                    
-                    <table class="table table-dark table-hover" border="4" align="center">
-                 
-				<tr>
-                    <td>
-                        <label for="date">date:
-                        </label>
-                    </td>
-                    <td><input type="date" name="date" id="date" required="date?"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="objet">objet:
-                        </label>
-                    </td>
-                    <td><input type="text" name="objet" id="objet" required="objet?" maxlength="20"></td>
-                    
-                </tr>
-                <tr>
-                    <td>
-                        <label  for="description" >description:
-                        </label>
-                    </td>
-                    <td>
-                        <input type="text" name="description" id="description" required="description?">
-                    </td>
-                </tr>
-                   
-                <tr>
-                    <td></td>
-                    <td>
-                        <input  id="a"  style= "background-color:red; "   type="submit" value="Envoyer reclamation"> 
-                         
- 
- 
 
-                    </td>
+
+
+        <form method="POST" action="" id="form">
  
-                    <td>
-                        <input style= "background-color:red; " type="reset"  value="Annuler" >
-                    </td> 
-                </tr>
-                </table><a  href="backend/blank.php "  class="btn btn-primary" >Backend</a>
-                <a   href="affichierrep.php "  class="btn btn-primary"   > Affichier les reponses</a>
-                    </form>
-                    
+ <div class="form-group">
+         <label for="id">id</label>
+         <input type="number" class="form-control" name="id" id="id"  value="<?PHP echo $reclamation['id']; ?>" required>
+     </div>
+
+     <div class="form-group">
+         <label for="date">date</label>
+         <input type="date" class="form-control" name="date" id="date"  value="<?PHP echo $reclamation['date']; ?>" required>
+     </div>
+
+     <div class="form-group">
+         <label for="objet">objet</label>
+         <input type="text" class="form-control" name="objet" id="objet"  value="<?PHP echo $reclamation['objet']; ?>" required>
+     </div>
+
+     <div class="form-group">
+         <label for="description">description</label>
+         <input type="text" class="form-control" name="description" id="description" value="<?PHP echo $reclamation['description']; ?>" required>
+     </div>
+
+     <button type="submit" value="Envoyer" class="btn btn-primary" >Modifier les donnee</button>
+
+ </form>
+ <br>
+                    <div id="erreur"></div>
+
                 </div>
+                <!-- /.container-fluid -->
+
             </div>
+            <!-- End of Main Content -->
+
+
+
         </div>
-    </div>
-    
 
-    <?php
 
-include_once "../Controller/reclamationcc.php";
-include_once "../config.php";
-include_once '../Model/reclamationn.php';
-//include 'C:\wamp64\www\Controller/reclamationcc.php';
-//require_once 'C:\xampp\htdocs\Produit_backend\produit.php';
-   $reclamationC=new reclamationc();
-   $listereclamation=$reclamationC->afficherreclamation(); 
-?>
-    <table class="table table-striped" border="1" align="center">
-           <tr>
-           <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
-               <th>id</th>
-               <th>Date </th>
-               <th>Objet  </th>
-               <th>reponses  </th>
-               <th>Supprimer</th>
-               
-           </tr>
-           
-           <?php
-				foreach($listereclamation as $reclamation){
-			?>
-
-			 
-				 <?php $a=$reclamation['id']; ?> 
-				 <?php $b=$reclamation['date']; ?> 
-				 <?php $c=$reclamation['objet']; ?> 
-				 <?php $d=$reclamation['description']; ?> 
-                         
-           </tr>
-           <?php
-               }
-           ?>
-                <td><?php echo $a?></td>
-               <td><?php echo $b?></td>
-               <td><?php echo $c?></td>
-               <td><?php echo $d?></td>
-               <td>
-					<a class="btn btn-primary" href="supprec.php?id=<?php echo $reclamation['id']; ?>">Supprimer</a>
-                     
-                      
-               </td>
-				 
-  
-       </table>
-       <a  class="btn btn-primary" href="modiff.php?id=<?PHP echo $reclamation['id'];?>"> Modifier </a>
-    <!-- Contact End -->
-    <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
-
-    <div id="google_translate_element"></div><script type="text/javascript">
+ <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
+ <div id="google_translate_element"></div><script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'ko', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
 }
@@ -281,6 +223,32 @@ function googleTranslateElementInit() {
 
 
 <script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- Contact Start -->
+    <div class="container-fluid pt-4">
+        <div class="d-flex flex-column text-center mb-5">
+            <br><br><br><br><br>
+            <h5 class="text-primary mb-0">Contact Us</h5>
+            
+        </div>
+        <div class="row">
+            
+            <div class="col-12">
+                <div class="contact-form bg-white">
+                    <div id="success"></div>
+                    
+               
+        </div>
+    </div>
+    
+
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+    
+    <!-- Contact End -->
+   
+    
     <!-- Footer Start -->
     <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
         <div class="row pt-5">
