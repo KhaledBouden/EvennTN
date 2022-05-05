@@ -1,5 +1,11 @@
 
-
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+<script>
+  function addDarkmodeWidget() {
+    new Darkmode().showWidget();
+  }
+  window.addEventListener('load', addDarkmodeWidget);
+</script>
 
 <?php
 include '../Controller/reclamationcc.php';
@@ -151,14 +157,27 @@ include '../model/reclamationn.php';
     </div>
     <!-- Navbar End -->
  
+ 
 <div class="container-fluid ">
         <div class="d-flex flex-column text-center mb-0">
             <h5 class="text-primary mb-0">Bienvenue</h5>
             <h1 class="m-0">Espace Reclamation </h1>
         </div>
+  
  
+        
+        <div class="row">
+            <div class="col-12 p-2">
+                 <iframe  async style="width: 100%; height: 400px;" src= https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13200.433545758657!2d10.190405227943439!3d36.89598523732991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12e2cb7454c6ed51%3A0x683b3ab5565cd357!2sEsprit%20Pr%C3%A9pa!5e0!3m2!1sfr!2stn!4v1651679125361!5m2!1sfr!2stn   style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  </div>
+ 
+           
+
+
+
+
     <!-- Contact Start -->
-    <div class="container-fluid pt-4">
+    <div class="container-fluid pt-5">
         <div class="d-flex flex-column text-center mb-5">
             <h5 class="text-primary mb-0">Contact Us</h5>
             <h1 class="m-0">Contact For Any Query</h1>
@@ -170,7 +189,7 @@ include '../model/reclamationn.php';
                     <div id="success"></div>
                     <form  action=" " method="POST"   >
                     
-                    <table class="table table-dark table-hover" border="4" align="center">
+                    <table class="table " border="4" align="center">
                  
 				<tr>
                     <td>
@@ -181,16 +200,13 @@ include '../model/reclamationn.php';
                 </tr>
                 <tr>
                     <td>
-                        <label for="objet">objet:
-                        </label>
+                        <label for="objet">objet:  </label>
                     </td>
-                    <td><input type="text" name="objet" id="objet" required="objet?" maxlength="20"></td>
-                    
+                    <td><input type="text" name="objet" id="objet"  required="objet?" maxlength="20"></td>
                 </tr>
                 <tr>
                     <td>
-                        <label  for="description" >description:
-                        </label>
+                        <label  for="description" >description: </label>
                     </td>
                     <td>
                         <input type="text" name="description" id="description" required="description?">
@@ -200,7 +216,7 @@ include '../model/reclamationn.php';
                 <tr>
                     <td></td>
                     <td>
-                        <input  id="a"  style= "background-color:red; "   type="submit" value="Envoyer reclamation"> 
+                        <input  id="a" name="a" style= "background-color:red; "   type="submit" value="Envoyer reclamation"> 
                          
  
  
@@ -219,7 +235,7 @@ include '../model/reclamationn.php';
             </div>
         </div>
     </div>
-    
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> 
 
     <?php
 
@@ -268,7 +284,7 @@ include_once '../Model/reclamationn.php';
 				 
   
        </table>
-       <a  class="btn btn-primary" href="modiff.php?id=<?PHP echo $reclamation['id'];?>"> Modifier </a>
+      <!-- <a  class="btn btn-primary" href="modiff.php?id=<?PHP echo $reclamation['id'];?>"> Modifier </a>-->
     <!-- Contact End -->
     <html> <style>  hr { border-top: 4px solid #095484;}</style><hr/>
 
@@ -282,7 +298,23 @@ function googleTranslateElementInit() {
 
 <script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <!-- Footer Start -->
+   
+
+
+
     <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
+
+    <style type="text/css">
+.centerImage
+{
+ text-align:center;
+ display:block;
+}
+</style>
+<center>
+    <img src="pdpfb.jpg" class="centerImage"   height=300 alt="pic"> 
+</center>
+
         <div class="row pt-5">
             <div class="col-lg-4 col-md-12 mb-5">
                 <h1 class="display-5 text-primary">Gymnast</h1>
@@ -352,6 +384,7 @@ function googleTranslateElementInit() {
     </div>
     <!-- Footer End -->
 
+   
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-secondary border back-to-top"><i class="fa fa-angle-double-up"></i></a>
@@ -371,6 +404,7 @@ function googleTranslateElementInit() {
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="verif.js"></script>
 </body>
 
 </html>
