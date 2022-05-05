@@ -1,6 +1,6 @@
 <?php
 	include 'config.php';
-	include_once '../../model/offre.php';
+	include '../../model/offre.php';
 	class offreC {
 		function afficherListeOffre(){
 			$sql="SELECT * FROM offre";

@@ -1,7 +1,7 @@
 <?php
 
 	include_once 'config.php';
-	include_once '../../model/commande.php';
+	include '../../model/commande.php';
 	class commandeC {
 		function afficherListecommande(){
 			$sql="SELECT * FROM commande";
@@ -72,11 +72,14 @@
                         
 					WHERE id_commande = :id'
 				);
+
 				$query->execute([
+					'id'=>$id,
 					'id_offre' => $commande->getid_offre(),
-					'prix_commande' => $commande->getprix_commande(),
 					'date_commande' => $commande->getdate_commande(),
-					'id_commande'=>$id
+					'prix_commande' => $commande->getprix_commande()
+					
+					
 				]);
 				echo $query->rowCount() . " records UPDATED successfully <br>";
 			} catch (PDOException $e) {
@@ -99,6 +102,7 @@
 			
 
 	}
+	
 
 
 
