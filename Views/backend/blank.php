@@ -396,7 +396,7 @@
 //pagination
 
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$perpage = isset($GET['per-page']) && $_GET['per-page'] <= 50 ? (int)$_GET['per-page'] : 4 ;
+$perpage = isset($GET['per-page']) && $_GET['per-page'] <= 50 ? (int)$_GET['per-page'] : 6 ;
 $reclamationC = new reclamationC();
 $listereclamation = $reclamationC->pagination($page, $perpage);
 $totalP = $reclamationC->calcTotalRows($perpage);

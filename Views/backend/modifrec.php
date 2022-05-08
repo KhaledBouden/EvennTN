@@ -186,7 +186,7 @@
             </li>
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
+7            <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
@@ -473,7 +473,7 @@ function googleTranslateElementInit() {
                             <input type="text" class="form-control" name="description" id="description" value="<?PHP echo $reclamation['description']; ?>" required>
                         </div>
 
-                        <button type="submit" value="Envoyer" class="btn btn-primary" >Modifier les donnee</button>
+                        <button type="submit" value="Envoyer" class="btn btn-primary" >Modifier les donnees</button>
 
                     </form>
                     <br>

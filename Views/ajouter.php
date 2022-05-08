@@ -167,9 +167,7 @@ include '../model/reclamationn.php';
  
         
         <div class="row">
-            <div class="col-12 p-2">
-                 <iframe  async style="width: 100%; height: 400px;" src= https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13200.433545758657!2d10.190405227943439!3d36.89598523732991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12e2cb7454c6ed51%3A0x683b3ab5565cd357!2sEsprit%20Pr%C3%A9pa!5e0!3m2!1sfr!2stn!4v1651679125361!5m2!1sfr!2stn   style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                  </div>
+            
  
            
 
